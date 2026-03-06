@@ -1,1 +1,60 @@
-<p>inicio works!</p>
+<div class="layout">
+
+    <app-sidebar
+        [abierto]="sidebarAbierto">
+    </app-sidebar>
+
+    <div class="content">
+
+        <div class="topbar">
+
+            <div
+                class="menu-icon"
+                (click)="toggleSidebar()">
+
+                ☰
+
+            </div>
+
+            <div class="title-section">
+                <h2>ANGULAR PROJECT</h2>
+                <p>Panel Administrativo</p>
+            </div>
+
+        </div>
+
+
+        <div class="cards-container">
+
+            <!--  CATEGORIAS -->
+            <div
+                class="card categoria-card"
+                routerLink="/categorias">
+
+                <div class="card-icon">
+                    <i class="bi bi-clipboard-check"></i>
+                </div>
+
+                <h3>Categorías</h3>
+
+                <p>Gestionar Categorías</p>
+            </div>
+
+            <!-- PRODUCTOS -->
+            <div
+                class="card producto-card"
+                routerLink="/productos">
+
+                <div class="card-icon">
+                    <i class="bi bi-box"></i>
+                </div>
+
+                <h3>Productos</h3>
+
+                <p>Gestionar Productos</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>

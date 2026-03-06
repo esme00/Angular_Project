@@ -1,1 +1,34 @@
-<p>sidebar works!</p>
+<div
+    class="sidebar"
+    [class.cerrado]="!abierto">
+
+    <div class="logo">
+        DATAONE
+    </div>
+
+    <ul class="menu">
+
+        <li routerLink="/">
+            <i class="bi bi-house"></i>
+            <span *ngIf="abierto">
+                Inicio
+            </span>
+
+        </li>
+
+        <li routerLink="/categorias">
+            <i class="bi bi-tags"></i>
+            <span *ngIf="abierto">
+                Categorías
+            </span>
+        </li>
+
+        <li routerLink="/productos">
+            <i class="bi bi-box"></i>
+            <span *ngIf="abierto">
+                Productos
+            </span>
+        </li>
+    </ul>
+
+</div>
