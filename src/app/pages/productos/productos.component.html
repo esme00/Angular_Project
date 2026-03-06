@@ -1,8 +1,10 @@
 <div class="flex h-screen bg-gray-100">
-    <!-- LLAMADO DEL SIDER -->
+
     <app-sidebar [abierto]="sidebarAbierto"></app-sidebar>
 
     <div class="flex-1 overflow-auto p-8">
+
+        <!-- HEADER -->
         <div class="flex items-center justify-between mb-8">
 
             <div class="flex items-center gap-4">
@@ -21,11 +23,22 @@
             </div>
 
             <button
-                class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+                (click)="abrirModal()"
+                [disabled]="categorias.length === 0"
+                class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
                 <i class="bi bi-plus-lg"></i>
                 Nuevo Producto
             </button>
 
+        </div>
+
+
+        <!-- AVISO SIN CATEGORIAS -->
+        <div
+            *ngIf="categorias.length === 0"
+            class="bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl px-6 py-4 mb-8 text-sm flex items-center gap-3">
+            <i class="bi bi-exclamation-triangle text-lg"></i>
+            Debés crear al menos una categoría antes de agregar productos.
         </div>
 
 
@@ -46,27 +59,39 @@
 
                 <tbody class="text-gray-700 text-sm divide-y divide-gray-100">
 
-                    <tr class="hover:bg-gray-50 transition">
+                    <tr
+                        *ngFor="let producto of productos"
+                        class="hover:bg-gray-50 transition">
 
-                        <td class="px-6 py-4 text-gray-400">1</td>
-                        <td class="px-6 py-4 font-medium">Laptop</td>
-                        <td class="px-6 py-4">$999.99</td>
+                        <td class="px-6 py-4 text-gray-400">
+                            {{ producto.id_producto }}
+                        </td>
+
+                        <td class="px-6 py-4 font-medium">
+                            {{ producto.nombre_producto }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            ${{ producto.precio_producto }}
+                        </td>
 
                         <td class="px-6 py-4">
                             <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
-                                Electrónica
+                                {{ getNombreCategoria(producto.id_categoria) }}
                             </span>
                         </td>
 
                         <td class="px-6 py-4 flex justify-end gap-3">
 
-                            <!-- BOTÓN EDITAR -->
-                            <button class="text-blue-400 hover:text-blue-600 transition">
+                            <button
+                                (click)="editar(producto)"
+                                class="text-blue-400 hover:text-blue-600 transition">
                                 <i class="bi bi-pencil"></i>
                             </button>
 
-                            <!-- BOTÓN ELIMINAR -->
-                            <button class="text-red-400 hover:text-red-600 transition">
+                            <button
+                                (click)="eliminar(producto.id_producto)"
+                                class="text-red-400 hover:text-red-600 transition">
                                 <i class="bi bi-trash"></i>
                             </button>
 
@@ -74,17 +99,125 @@
 
                     </tr>
 
-                    <!-- PRODUCTOS NO CREADOS UN -->
-                    <!-- <tr>
+                    <tr *ngIf="productos.length === 0">
                         <td colspan="5" class="px-6 py-12 text-center text-gray-400 text-sm">
                             <i class="bi bi-box-seam text-3xl mb-2 block"></i>
                             No hay productos creados aún
                         </td>
-                    </tr> -->
+                    </tr>
 
                 </tbody>
 
             </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL -->
+    <div
+        *ngIf="modalAbierto"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+        <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+
+            <div class="flex items-center justify-between mb-6">
+
+                <h2 class="text-xl font-bold text-gray-800">
+                    {{ editando ? 'Editar Producto' : 'Nuevo Producto' }}
+                </h2>
+
+                <button
+                    (click)="cerrarModal()"
+                    class="text-gray-400 hover:text-gray-600 transition text-xl">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="guardar()">
+
+                <div class="flex flex-col gap-2 mb-4">
+
+                    <label class="text-sm font-medium text-gray-600">Nombre</label>
+
+                    <input
+                        formControlName="nombre_producto"
+                        type="text"
+                        placeholder="Ej: Laptop"
+                        class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+                    <span
+                        *ngIf="form.get('nombre_producto')?.invalid && form.get('nombre_producto')?.touched"
+                        class="text-red-500 text-xs">
+                        El nombre es requerido
+                    </span>
+
+                </div>
+
+                <div class="flex flex-col gap-2 mb-4">
+
+                    <label class="text-sm font-medium text-gray-600">Precio</label>
+
+                    <input
+                        formControlName="precio_producto"
+                        type="number"
+                        placeholder="Ej: 999.99"
+                        class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+                    <span
+                        *ngIf="form.get('precio_producto')?.invalid && form.get('precio_producto')?.touched"
+                        class="text-red-500 text-xs">
+                        El precio es requerido y debe ser mayor a 0
+                    </span>
+
+                </div>
+
+                <div class="flex flex-col gap-2 mb-6">
+
+                    <label class="text-sm font-medium text-gray-600">Categoría</label>
+
+                    <select
+                        formControlName="id_categoria"
+                        class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                        <option [ngValue]="null" disabled>Seleccionar categoría</option>
+
+                        <option
+                            *ngFor="let categoria of categorias"
+                            [ngValue]="categoria.id_categoria">
+                            {{ categoria.nombre_categoria }}
+                        </option>
+
+                    </select>
+
+                    <span
+                        *ngIf="form.get('id_categoria')?.invalid && form.get('id_categoria')?.touched"
+                        class="text-red-500 text-xs">
+                        La categoría es requerida
+                    </span>
+
+                </div>
+
+                <div class="flex justify-end gap-3">
+
+                    <button
+                        type="button"
+                        (click)="cerrarModal()"
+                        class="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold px-6 py-2 rounded-xl transition">
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-2 rounded-xl transition">
+                        {{ editando ? 'Guardar cambios' : 'Crear' }}
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 
