@@ -1,62 +1,29 @@
 <div
   class="bg-gradient-to-b from-indigo-500 to-purple-500 text-white h-screen transition-all duration-300"
-  [class.w-72]="abierto"
-  [class.w-24]="!abierto">
+  [class.w-56]="abierto" [class.w-16]="!abierto">
 
-  <!-- LOGO -->
-  <div class="flex items-center justify-center py-8 text-xl font-bold">
-
-    <span *ngIf="abierto" class="text-white text-3xl">
-      DATAONE
-    </span>
-
+  <div class="flex items-center justify-center py-6 font-bold">
+    <span *ngIf="abierto" class="text-lg text-white">DATAONE</span>
+    <i *ngIf="!abierto" class="bi bi-grid text-xl"></i> 
   </div>
 
-
-  <!-- MENU -->
-  <ul class="mt-12 space-y-6">
-
-    <!-- INICIO -->
-    <li
-      routerLink="/"
-      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-lg">
-
-      <i class="bi bi-house text-2xl"></i>
-
-      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
-        Inicio
-      </span>
-
+  <!-- Opciones -->
+  <ul class="mt-6 space-y-2">
+    <li  routerLink="/" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+      <i class="bi bi-house text-lg"></i>
+      <span *ngIf="abierto" class="text-sm font-semibold">Inicio</span>
     </li>
 
-
-    <!-- CATEGORIAS -->
-    <li
-      routerLink="/categorias"
-      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-lg">
-
-      <i class="bi bi-tags text-2xl"></i>
-
-      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
-        Categorías
-      </span>
-
+     <li  routerLink="/categorias" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+      <i class="bi bi-tags text-lg"></i>
+      <span *ngIf="abierto" class="text-sm font-semibold">Categorías</span>
     </li>
 
-
-    <!-- PRODUCTOS -->
-    <li 
-      routerLink="/productos"
-      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-xl">
-
-      <i class="bi bi-box-seam text-2xl"></i>
-
-      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
-        Productos
-      </span>
-
+     <li  routerLink="/productos" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+      <i class="bi bi-box-seam text-lg"></i>
+      <span *ngIf="abierto" class="text-sm font-semibold">Productos</span>
     </li>
-
   </ul>
 
 </div>
+
