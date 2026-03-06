@@ -17,6 +17,8 @@ export class CategoriasComponent {
   sidebarAbierto      = true;
   modalAbierto        = false;
   editando            = false;
+  modalEliminarAbierto  = false; //MODAL PARA LA VALIDACIÓN DE ELIMINAR
+  id_Eliminar:          number | null = null;
   categorias: Categoria[] = [];
   form!: FormGroup;
 
@@ -59,7 +61,7 @@ export class CategoriasComponent {
     this.form.reset();
   }
 
-   guardar() 
+  guardar() 
    {
     if (this.form.invalid) return;
     const categoria: Categoria = 
@@ -78,29 +80,50 @@ export class CategoriasComponent {
     this.cargarCategorias();
     this.cerrarModal();
 
-    }
+  }
 
-    editar(categoria: Categoria) 
-    {
-      this.editando = true;
-      this.form.setValue({
-        id_categoria:     categoria.id_categoria,
-        nombre_categoria: categoria.nombre_categoria
-      });
+  editar(categoria: Categoria) 
+  {
+    this.editando = true;
+    this.form.setValue({
+      id_categoria:     categoria.id_categoria,
+      nombre_categoria: categoria.nombre_categoria
+    });
       
-      this.modalAbierto = true;
-    }
+    this.modalAbierto = true;
+  }
 
-    eliminar(id_categoria: number) 
+  eliminar(id_categoria: number) 
+  {
+    this.abrirModalEliminar(id_categoria);
+  }
+  
+  abrirModalEliminar(id_categoria: number)
+  {
+    this.id_Eliminar = id_categoria;
+    this.modalEliminarAbierto = true;
+  }
+
+  cerrarModalEliminar()
+  {
+    this.id_Eliminar = null;
+    this.modalEliminarAbierto = false;
+  }
+
+  confirmarEliminar()
+  {
+    if(this.id_Eliminar !== null )
     {
-      this.categoriaService.eliminarCategoria(id_categoria);
+      this.categoriaService.eliminarCategoria(this.id_Eliminar);
       this.cargarCategorias();
+      this.cerrarModal();
     }
-
-    toggleSidebar() 
-    {
-      this.sidebarAbierto = !this.sidebarAbierto;
-    }
+  }
+  
+  toggleSidebar() 
+  {
+    this.sidebarAbierto = !this.sidebarAbierto;
+  }
 
   
 }

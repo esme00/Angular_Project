@@ -14,8 +14,9 @@ export class InicioComponent {
 
   sidebarAbierto = true; //sidebar inicia abierto
   
-    toggleSidebar() {
-      this.sidebarAbierto = !this.sidebarAbierto;
-    }
+  toggleSidebar() 
+  {
+    this.sidebarAbierto = !this.sidebarAbierto;
+  }
 
 }

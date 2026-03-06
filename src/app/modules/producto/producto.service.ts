@@ -7,6 +7,7 @@ import { Producto } from './producto.interface';
 
 export class ProductoService {
     private readonly KEY = 'productos';
+
     getProductos(): Producto[] 
     {
         const data = localStorage.getItem(this.KEY);
@@ -33,7 +34,7 @@ export class ProductoService {
         localStorage.setItem(this.KEY, JSON.stringify(productos));
     }
 
-    //Generar los ids automaticamente
+    //GENERAR LOS IDS AUTOMATICAMENTE
     generarId(): number {
         const productos = this.getProductos();
         return productos.length > 0 ? Math.max(...productos.map(p => p.id_producto)) + 1 : 1;

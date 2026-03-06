@@ -112,8 +112,11 @@ export class ProductosComponent {
   }
 
   eliminar(id_producto: number) {
-    this.productoService.eliminarProducto(id_producto);
-    this.cargarProductos();
+    
+      this.productoService.eliminarProducto(id_producto);
+      this.cargarProductos();
+    
+   
   }
   
   toggleSidebar() 
