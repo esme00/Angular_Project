@@ -116,10 +116,11 @@ export class CategoriasComponent {
     {
       this.categoriaService.eliminarCategoria(this.id_Eliminar);
       this.cargarCategorias();
-      this.cerrarModal();
+      this.cerrarModalEliminar();
     }
   }
   
+
   toggleSidebar() 
   {
     this.sidebarAbierto = !this.sidebarAbierto;

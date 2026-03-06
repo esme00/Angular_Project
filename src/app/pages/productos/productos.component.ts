@@ -19,6 +19,8 @@ export class ProductosComponent {
   sidebarAbierto = false;
   modalAbierto          = false;
   editando              = false;
+  modalEliminarAbierto  = false; //MODAL PARA LA VALIDACIÓN DE ELIMINAR
+  id_Eliminar:          number | null = null;
   productos: Producto[]   = [];
   categorias: Categoria[] = [];
   form!: FormGroup;
@@ -110,15 +112,33 @@ export class ProductosComponent {
     
     this.modalAbierto = true;
   }
-
-  eliminar(id_producto: number) {
-    
-      this.productoService.eliminarProducto(id_producto);
-      this.cargarProductos();
-    
-   
+  eliminar(id_producto: number) 
+  {
+    this.abrirModalEliminar(id_producto);
   }
   
+  abrirModalEliminar(id_producto: number)
+  {
+    this.id_Eliminar = id_producto;
+    this.modalEliminarAbierto = true;
+  }
+
+  cerrarModalEliminar()
+  {
+    this.id_Eliminar = null;
+    this.modalEliminarAbierto = false;
+  }
+
+  confirmarEliminar()
+  {
+    if(this.id_Eliminar !== null )
+    {
+      this.productoService.eliminarProducto(this.id_Eliminar);
+      this.cargarProductos();
+      this.cerrarModalEliminar();
+    }
+  }
+
   toggleSidebar() 
   {
     this.sidebarAbierto = !this.sidebarAbierto;

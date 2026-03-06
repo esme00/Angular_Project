@@ -4,7 +4,6 @@
 
     <div class="flex-1 overflow-auto p-8">
 
-        <!-- HEADER -->
         <div class="flex items-center justify-between mb-8">
 
             <div class="flex items-center gap-4">
@@ -90,7 +89,7 @@
                             </button>
 
                             <button
-                                (click)="eliminar(producto.id_producto)"
+                                (click)="abrirModalEliminar(producto.id_producto)"
                                 class="text-red-400 hover:text-red-600 transition">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -145,7 +144,7 @@
                     <input
                         formControlName="nombre_producto"
                         type="text"
-                        placeholder="Ej: Pepsi"
+                        placeholder="Ejemplo: Pepsi"
                         class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
 
                     <span
@@ -163,7 +162,7 @@
                     <input
                         formControlName="precio_producto"
                         type="number"
-                        placeholder="Ej: 0.99"
+                        placeholder="Ejemplo: 0.99"
                         class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
 
                     <span
@@ -221,6 +220,36 @@
 
         </div>
 
+    </div>
+
+     <!-- MODAL PARA ELIMINAR -->
+
+    <div  *ngIf="modalEliminarAbierto" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
+            <div class="flex flex-col items-center text-center gap-4">
+                <div class="bg-red-100 rounded-full p-4">
+                    <i class="bi bi-trash text-red-500 text-3xl"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800">
+                    ¿Seguro que desea Eliminar El Producto?
+                </h2>
+                <p class="text-sm text-gray-500">
+                    Esta acción no se puede deshacer.
+                </p>
+                <div class="flex gap-3 w-full mt-2">
+                    <button (click)="cerrarModalEliminar()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold py-2 rounded-xl transition">
+                        Cancelar
+                    </button>
+
+                    <button (click)="confirmarEliminar()" class="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 rounded-xl transition">
+                        Sí, eliminar
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        
     </div>
 
 </div>
