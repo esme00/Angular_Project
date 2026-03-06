@@ -1,34 +1,62 @@
 <div
-    class="sidebar"
-    [class.cerrado]="!abierto">
+  class="bg-gradient-to-b from-indigo-500 to-purple-500 text-white h-screen transition-all duration-300"
+  [class.w-72]="abierto"
+  [class.w-24]="!abierto">
 
-    <div class="logo">
-        DATAONE
-    </div>
+  <!-- LOGO -->
+  <div class="flex items-center justify-center py-8 text-xl font-bold">
 
-    <ul class="menu">
+    <span *ngIf="abierto" class="text-white text-3xl">
+      DATAONE
+    </span>
 
-        <li routerLink="/">
-            <i class="bi bi-house"></i>
-            <span *ngIf="abierto">
-                Inicio
-            </span>
+  </div>
 
-        </li>
 
-        <li routerLink="/categorias">
-            <i class="bi bi-tags"></i>
-            <span *ngIf="abierto">
-                Categorías
-            </span>
-        </li>
+  <!-- MENU -->
+  <ul class="mt-12 space-y-6">
 
-        <li routerLink="/productos">
-            <i class="bi bi-box"></i>
-            <span *ngIf="abierto">
-                Productos
-            </span>
-        </li>
-    </ul>
+    <!-- INICIO -->
+    <li
+      routerLink="/"
+      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-lg">
+
+      <i class="bi bi-house text-2xl"></i>
+
+      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
+        Inicio
+      </span>
+
+    </li>
+
+
+    <!-- CATEGORIAS -->
+    <li
+      routerLink="/categorias"
+      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-lg">
+
+      <i class="bi bi-tags text-2xl"></i>
+
+      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
+        Categorías
+      </span>
+
+    </li>
+
+
+    <!-- PRODUCTOS -->
+    <li 
+      routerLink="/productos"
+      class="flex items-center gap-4 px-6 py-4 hover:bg-white/20 rounded-lg cursor-pointer transition text-xl">
+
+      <i class="bi bi-box-seam text-2xl"></i>
+
+      <span *ngIf="abierto" class="text-white text-2xl font-semibold">
+        Productos
+      </span>
+
+    </li>
+
+  </ul>
 
 </div>
