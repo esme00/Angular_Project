@@ -1,5 +1,5 @@
 <div
-  class="bg-gradient-to-b from-indigo-500 to-purple-500 text-white h-screen transition-all duration-300"
+  class="relative bg-gradient-to-b from-indigo-500 to-purple-500 text-white h-screen transition-all duration-300"
   [class.w-56]="abierto" [class.w-16]="!abierto">
 
   <div class="flex items-center justify-center py-6 font-bold">
@@ -7,23 +7,38 @@
     <i *ngIf="!abierto" class="bi bi-grid text-xl"></i> 
   </div>
 
-  <!-- Opciones -->
+  <!-- OPCIONES -->
   <ul class="mt-6 space-y-2">
-    <li  routerLink="/" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+
+    <li routerLink="/" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
       <i class="bi bi-house text-lg"></i>
       <span *ngIf="abierto" class="text-sm font-semibold">Inicio</span>
     </li>
 
-     <li  routerLink="/categorias" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+    <li routerLink="/categorias" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
       <i class="bi bi-tags text-lg"></i>
       <span *ngIf="abierto" class="text-sm font-semibold">Categorías</span>
     </li>
 
-     <li  routerLink="/productos" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
+    <li routerLink="/productos" class="flex items-center gap-3 px-4 py-3 hover:bg-white/20 rounded-lg cursor-pointer transition">
       <i class="bi bi-box-seam text-lg"></i>
       <span *ngIf="abierto" class="text-sm font-semibold">Productos</span>
     </li>
+
   </ul>
 
-</div>
 
+  <!-- AUTORIA -->
+  <div class="absolute bottom-0 left-0 w-full px-4 py-4">
+
+    <p *ngIf="abierto" class="text-white/50 text-xs text-center">
+      © Esmeralda Noemí García Borja
+    </p>
+
+    <p *ngIf="!abierto" class="text-white/50 text-xs text-center">
+      ©
+    </p>
+
+  </div>
+
+</div>
