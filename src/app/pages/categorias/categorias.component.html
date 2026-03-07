@@ -21,12 +21,29 @@
 
             </div>
 
-            <button
-                (click)="abrirModal()"
-                class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
-                <i class="bi bi-plus-lg"></i>
-                Nueva Categoría
-            </button>
+            <div class="flex items-center gap-3"> 
+                
+                <!-- BUSCADOR -->
+                <div class="relative">
+                    <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <input
+                        [(ngModel)]="filtro"
+                        type="text"
+                        placeholder="Buscar..."
+                        class="border border-gray-300 rounded-xl pl-8 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-48"/>
+
+                </div>
+
+                <button (click)="abrirModal()"
+                    class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+                    <i class="bi bi-plus-lg"></i>
+                    Nueva Categoría
+                </button>
+
+
+            </div>
+
+            
 
         </div>
 
@@ -47,7 +64,7 @@
                 <tbody class="text-gray-700 text-sm divide-y divide-gray-100">
 
                     <tr
-                        *ngFor="let categoria of categorias"
+                        *ngFor="let categoria of categoriaFiltradas"
                         class="hover:bg-gray-50 transition">
 
                         <td class="px-6 py-4 text-gray-400">
@@ -76,7 +93,7 @@
 
                     </tr>
 
-                    <tr *ngIf="categorias.length === 0">
+                    <tr *ngIf="categoriaFiltradas.length === 0">
                         <td colspan="3" class="px-6 py-12 text-center text-gray-400 text-sm">
                             <i class="bi bi-tags text-3xl mb-2 block"></i>
                             No hay categorías creadas aún

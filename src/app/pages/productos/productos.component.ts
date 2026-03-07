@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
 import { ProductoService } from '../../modules/producto/producto.service';
 import { CategoriaService } from '../../modules/categoria/categoria.service';
@@ -10,7 +10,7 @@ import { Categoria } from '../../modules/categoria/categoria.interface';
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, SidebarComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
@@ -24,6 +24,7 @@ export class ProductosComponent {
   productos: Producto[]   = [];
   categorias: Categoria[] = [];
   form!: FormGroup;
+  filtro = '';
 
   constructor(
     private fb:               FormBuilder,
@@ -44,7 +45,7 @@ export class ProductosComponent {
 
       id_producto:     [null],
       nombre_producto: ['', Validators.required],
-      precio_producto: [null, [Validators.required, Validators.min(0)]],
+      precio_producto: [null, [Validators.required, Validators.min(0.01)]],
       id_categoria:    [null, Validators.required]
 
     });
@@ -137,6 +138,15 @@ export class ProductosComponent {
       this.cargarProductos();
       this.cerrarModalEliminar();
     }
+  }
+
+  //filtrar productos
+  get productosFiltrados(): Producto[]{
+    const filtroLower = this.filtro.toLowerCase();
+    return this.productos.filter(p =>
+      p.nombre_producto.toLowerCase().includes(filtroLower) ||
+      this.getNombreCategoria(p.id_categoria).toLowerCase().includes(filtroLower)
+    );
   }
 
   toggleSidebar() 

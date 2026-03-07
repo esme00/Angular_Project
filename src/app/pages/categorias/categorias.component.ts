@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
 import { CategoriaService } from '../../modules/categoria/categoria.service';
 import { Categoria } from '../../modules/categoria/categoria.interface';
@@ -8,7 +8,7 @@ import { Categoria } from '../../modules/categoria/categoria.interface';
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, SidebarComponent],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })
@@ -21,6 +21,7 @@ export class CategoriasComponent {
   id_Eliminar:          number | null = null;
   categorias: Categoria[] = [];
   form!: FormGroup;
+  filtro = '';
 
   constructor
   (
@@ -120,6 +121,15 @@ export class CategoriasComponent {
     }
   }
   
+  //filtrar Categoria
+    get categoriaFiltradas(): Categoria[]{
+      const filtroLower = this.filtro.toLowerCase();
+      return this.categorias.filter(
+        c => c.nombre_categoria.toLowerCase().includes(filtroLower) ||
+        c.id_categoria.toString().includes(filtroLower)
+      );
+  
+    }
 
   toggleSidebar() 
   {
