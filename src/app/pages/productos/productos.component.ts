@@ -63,7 +63,7 @@ export class ProductosComponent {
 
   getNombreCategoria(id_categoria: number): string {
     const categoria = this.categorias.find(c => c.id_categoria === id_categoria);
-    return categoria ? categoria.nombre_categoria : 'Sin categoría';
+    return this.categorias?.find(c => c.id_categoria === id_categoria)?.nombre_categoria ?? 'Sin categoría';
   }
 
   abrirModal() 
@@ -142,9 +142,10 @@ export class ProductosComponent {
 
   //filtrar productos
   get productosFiltrados(): Producto[]{
+    if (!this.productos || this.productos.length === 0) return [];
     const filtroLower = this.filtro.toLowerCase();
-    return this.productos.filter(p =>
-      p.nombre_producto.toLowerCase().includes(filtroLower) ||
+    return this.productos.filter(
+      p => p.nombre_producto.toLowerCase().includes(filtroLower) ||
       this.getNombreCategoria(p.id_categoria).toLowerCase().includes(filtroLower)
     );
   }

@@ -122,13 +122,14 @@ export class CategoriasComponent {
   }
   
   //filtrar Categoria
-    get categoriaFiltradas(): Categoria[]{
+    get categoriaFiltradas(): Categoria[]
+    {
+      if (!this.categorias || this.categorias.length === 0) return [];
       const filtroLower = this.filtro.toLowerCase();
       return this.categorias.filter(
         c => c.nombre_categoria.toLowerCase().includes(filtroLower) ||
         c.id_categoria.toString().includes(filtroLower)
       );
-  
     }
 
   toggleSidebar() 
