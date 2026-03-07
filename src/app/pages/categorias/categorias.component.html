@@ -1,28 +1,19 @@
 <div class="flex h-screen bg-gray-100">
 
-    <app-sidebar [abierto]="sidebarAbierto"></app-sidebar>
+    <!-- LLAMADO DEL SIDEBAR -->
+    <app-sidebar [(abierto)]="sidebarAbierto"></app-sidebar>
 
-    <div class="flex-1 overflow-auto p-8">
+    <div class="flex-1 overflow-auto p-4 md:p-8 min-w-0">
 
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center justify-between mb-6 md:mb-8">
 
-            <div class="flex items-center gap-4">
-
-                <button
-                    (click)="toggleSidebar()"
-                    class="text-xl text-gray-600 hover:text-gray-800 transition">
-                    <i class="bi bi-list"></i>
-                </button>
-
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-800">Categorías</h1>
-                    <p class="text-sm text-gray-500 mt-1">Gestionar categorías</p>
-                </div>
-
+            <div>
+                <h1 class="text-xl md:text-3xl font-bold text-gray-800">Categorías</h1>
+                <p class="text-xs md:text-sm text-gray-500 mt-1">Gestionar categorías</p>
             </div>
 
-            <div class="flex items-center gap-3"> 
-                
+            <div class="flex items-center gap-2 md:gap-3">
+
                 <!-- BUSCADOR -->
                 <div class="relative">
                     <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
@@ -30,20 +21,17 @@
                         [(ngModel)]="filtro"
                         type="text"
                         placeholder="Buscar..."
-                        class="border border-gray-300 rounded-xl pl-8 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-48"/>
-
+                        class="border border-gray-300 rounded-xl pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 w-32 md:w-48"/>
                 </div>
 
                 <button (click)="abrirModal()"
-                    class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+                    class="flex items-center gap-1 md:gap-2 bg-purple-600 hover:bg-purple-700 text-white text-xs md:text-sm font-semibold px-3 md:px-4 py-2 rounded-xl transition">
                     <i class="bi bi-plus-lg"></i>
-                    Nueva Categoría
+                    <span class="hidden sm:inline">Nueva Categoría</span>
+                    <span class="sm:hidden">Nueva</span>
                 </button>
 
-
             </div>
-
-            
 
         </div>
 
@@ -55,9 +43,9 @@
 
                 <thead class="bg-purple-50 text-purple-700 text-sm">
                     <tr>
-                        <th class="px-6 py-4">#</th>
-                        <th class="px-6 py-4">Nombre</th>
-                        <th class="px-6 py-4 text-right">Acciones</th>
+                        <th class="px-4 md:px-6 py-4">#</th>
+                        <th class="px-4 md:px-6 py-4">Nombre</th>
+                        <th class="px-4 md:px-6 py-4 text-right">Acciones</th>
                     </tr>
                 </thead>
 
@@ -67,15 +55,15 @@
                         *ngFor="let categoria of categoriaFiltradas"
                         class="hover:bg-gray-50 transition">
 
-                        <td class="px-6 py-4 text-gray-400">
+                        <td class="px-4 md:px-6 py-4 text-gray-400">
                             {{ categoria.id_categoria }}
                         </td>
 
-                        <td class="px-6 py-4 font-medium">
+                        <td class="px-4 md:px-6 py-4 font-medium">
                             {{ categoria.nombre_categoria }}
                         </td>
 
-                        <td class="px-6 py-4 flex justify-end gap-3">
+                        <td class="px-4 md:px-6 py-4 flex justify-end gap-3">
 
                             <button
                                 (click)="editar(categoria)"
@@ -112,9 +100,9 @@
     <!-- MODAL -->
     <div
         *ngIf="modalAbierto"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
 
-        <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-md">
 
             <div class="flex items-center justify-between mb-6">
 
@@ -176,9 +164,8 @@
     </div>
 
     <!-- MODAL PARA ELIMINAR -->
-
-    <div  *ngIf="modalEliminarAbierto" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
+    <div *ngIf="modalEliminarAbierto" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-sm">
             <div class="flex flex-col items-center text-center gap-4">
                 <div class="bg-red-100 rounded-full p-4">
                     <i class="bi bi-trash text-red-500 text-3xl"></i>
@@ -193,16 +180,12 @@
                     <button (click)="cerrarModalEliminar()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold py-2 rounded-xl transition">
                         Cancelar
                     </button>
-
                     <button (click)="confirmarEliminar()" class="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 rounded-xl transition">
                         Sí, eliminar
                     </button>
                 </div>
-
             </div>
-
         </div>
-        
     </div>
 
 </div>
