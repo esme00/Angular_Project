@@ -39,6 +39,7 @@ export class ProductosComponent {
     this.iniciarForm();
   }
 
+  // INICIAR EL FORMULARIO CON SUS CAMPOS Y VALIDACIONES
   iniciarForm() 
   {
     this.form = this.fb.group({
@@ -51,21 +52,25 @@ export class ProductosComponent {
     });
   }
 
+  // OBTENER TODOS LOS PRODUCTOS DEL LOCALSTORAGE
   cargarProductos()
   {
     this.productos = this.productoService.getProductos();
   }
 
+  // OBTENER TODAS LAS CATEGORÍAS DEL LOCALSTORAGE
   cargarCategorias() 
   {
     this.categorias = this.categoriaService.getCategorias();
   }
 
+  // OBTENER EL NOMBRE DE LA CATEGORÍA POR SU ID
   getNombreCategoria(id_categoria: number): string {
     const categoria = this.categorias.find(c => c.id_categoria === id_categoria);
     return this.categorias?.find(c => c.id_categoria === id_categoria)?.nombre_categoria ?? 'Sin categoría';
   }
 
+  // ABRIR MODAL EN MODO CREAR
   abrirModal() 
   {
     this.editando = false;
@@ -73,12 +78,14 @@ export class ProductosComponent {
     this.modalAbierto = true;
   }
 
+  // CERRAR MODAL Y LIMPIAR FORMULARIO
   cerrarModal() 
   {
     this.modalAbierto = false;
     this.form.reset();
   }
 
+  // GUARDAR O EDITAR UN PRODUCTO S
   guardar() 
   {
     if (this.form.invalid) return;
@@ -101,6 +108,7 @@ export class ProductosComponent {
     this.cerrarModal();
   }
 
+  // ABRIR MODAL EN MODO EDITAR CON LOS DATOS DEL PRODUCTO
   editar(producto: Producto) 
   {
     this.editando = true;
@@ -113,23 +121,27 @@ export class ProductosComponent {
     
     this.modalAbierto = true;
   }
+
   eliminar(id_producto: number) 
   {
     this.abrirModalEliminar(id_producto);
   }
-  
+
+  // ABRIR MODAL DE CONFIRMACIÓN DE ELIMINACIÓN
   abrirModalEliminar(id_producto: number)
   {
     this.id_Eliminar = id_producto;
     this.modalEliminarAbierto = true;
   }
 
+  // CERRAR MODAL DE ELIMINACIÓN
   cerrarModalEliminar()
   {
     this.id_Eliminar = null;
     this.modalEliminarAbierto = false;
   }
 
+  // CONFIRMAR Y EJECUTAR LA ELIMINACIÓN DEL PRODUCTO
   confirmarEliminar()
   {
     if(this.id_Eliminar !== null )
@@ -140,7 +152,7 @@ export class ProductosComponent {
     }
   }
 
-  //filtrar productos
+  //FILTRAR PRODUCTOS
   get productosFiltrados(): Producto[]{
     if (!this.productos || this.productos.length === 0) return [];
     const filtroLower = this.filtro.toLowerCase();

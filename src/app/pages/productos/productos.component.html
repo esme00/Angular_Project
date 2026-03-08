@@ -24,7 +24,7 @@
                         class="border border-gray-300 rounded-xl pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-32 md:w-48"/>
                 </div>
 
-                <!-- BOTÓN NUEVO PRODUCTO -->
+                <!-- BOTÓN NUEVO PRODUCTO CON VALIDACIÓN SI NO HAY CATEGORÍA-->
                 <button (click)="abrirModal()" [disabled]="categorias.length === 0"
                     class="flex items-center gap-1 md:gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs md:text-sm font-semibold px-3 md:px-4 py-2 rounded-xl transition">
                     <i class="bi bi-plus-lg"></i>
@@ -37,7 +37,7 @@
         </div>
 
 
-        <!-- AVISO CUANDO NO HAY CATEGORIAS -->
+        <!-- ALERTA CUANDO NO HAY CATEGORIAS -->
         <div
             *ngIf="categorias.length === 0"
             class="bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl px-4 md:px-6 py-4 mb-6 md:mb-8 text-xs md:text-sm flex items-center gap-3">
@@ -62,7 +62,7 @@
                 </thead>
 
                 <tbody class="text-gray-700 text-sm divide-y divide-gray-100">
-
+                    <!-- LISTADO DE PRODUCTOS -->
                     <tr
                         *ngFor="let producto of productosFiltrados"
                         class="hover:bg-gray-50 transition">
@@ -86,13 +86,13 @@
                         </td>
 
                         <td class="px-4 md:px-6 py-4 flex justify-end gap-3">
-
+                            <!-- BOTÓN EDITAR -->
                             <button
                                 (click)="editar(producto)"
                                 class="text-blue-400 hover:text-blue-600 transition">
                                 <i class="bi bi-pencil"></i>
                             </button>
-
+                            <!-- BOTÓN ELIMINAR -->
                             <button
                                 (click)="abrirModalEliminar(producto.id_producto)"
                                 class="text-red-400 hover:text-red-600 transition">
@@ -102,7 +102,7 @@
                         </td>
 
                     </tr>
-
+                    <!-- MENSAJE CUANDO NO HAY PRODUCTOS -->
                     <tr *ngIf="productosFiltrados.length === 0">
                         <td colspan="5" class="px-6 py-12 text-center text-gray-400 text-sm">
                             <i class="bi bi-box-seam text-3xl mb-2 block"></i>
@@ -152,6 +152,7 @@
                         placeholder="Ejemplo: Pepsi"
                         class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
 
+                    <!-- VALIDACIÓN DEL CAMPO NOMBRE -->
                     <span
                         *ngIf="form.get('nombre_producto')?.invalid && form.get('nombre_producto')?.touched"
                         class="text-red-500 text-xs">
@@ -172,6 +173,7 @@
                         placeholder="Ejemplo: 0.99"
                         class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"/>
 
+                    <!-- VALIDACIÓN DEL CAMPO PRECIO -->
                     <span
                         *ngIf="form.get('precio_producto')?.invalid && form.get('precio_producto')?.touched"
                         class="text-red-500 text-xs">
@@ -184,6 +186,7 @@
 
                     <label class="text-sm font-medium text-gray-600">Categoría</label>
 
+                    <!-- SELECT CON LAS CATEGORÍAS DISPONIBLES -->
                     <select
                         formControlName="id_categoria"
                         class="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -198,6 +201,7 @@
 
                     </select>
 
+                    <!-- VALIDACIÓN DEL CAMPO CATEGORÍA -->
                     <span
                         *ngIf="form.get('id_categoria')?.invalid && form.get('id_categoria')?.touched"
                         class="text-red-500 text-xs">
@@ -253,12 +257,14 @@
 
                 <div class="flex gap-3 w-full mt-2">
 
+                    <!-- BOTÓN CANCELAR -->
                     <button
                         (click)="cerrarModalEliminar()"
                         class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-semibold py-2 rounded-xl transition">
                         Cancelar
                     </button>
 
+                    <!-- BOTÓN ELIMINAR -->
                     <button
                         (click)="confirmarEliminar()"
                         class="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 rounded-xl transition">

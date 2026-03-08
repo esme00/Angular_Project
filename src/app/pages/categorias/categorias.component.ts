@@ -35,6 +35,7 @@ export class CategoriasComponent {
     this.iniciarForm();
   }
 
+  // INICIAR EL FORMULARIO CON SUS CAMPOS Y VALIDACIONES
   iniciarForm() 
   {
     this.form = this.fb.group
@@ -43,12 +44,13 @@ export class CategoriasComponent {
       nombre_categoria: ['', Validators.required]
     });
   }
-
+  // OBTENER TODOS LAS CATEGORÍAS DEL LOCALSTORAGE
   cargarCategorias() 
   {
     this.categorias = this.categoriaService.getCategorias();
   }
 
+  // ABRIR MODAL EN MODO CREAR
   abrirModal()
   {
     this.editando = false;
@@ -56,12 +58,14 @@ export class CategoriasComponent {
     this.modalAbierto = true;
   }
 
+  // CERRAR MODAL Y LIMPIAR FORMULARIO
   cerrarModal() 
   {
     this.modalAbierto = false;
     this.form.reset();
   }
 
+  // GUARDAR O EDITAR UNA CATEGORÍA
   guardar() 
    {
     if (this.form.invalid) return;
@@ -83,6 +87,7 @@ export class CategoriasComponent {
 
   }
 
+  // ABRIR MODAL EN MODO EDITAR CON LOS DATOS DE LA CATEGORÍA
   editar(categoria: Categoria) 
   {
     this.editando = true;
@@ -99,18 +104,21 @@ export class CategoriasComponent {
     this.abrirModalEliminar(id_categoria);
   }
   
+  // ABRIR MODAL DE CONFIRMACIÓN DE ELIMINACIÓN
   abrirModalEliminar(id_categoria: number)
   {
     this.id_Eliminar = id_categoria;
     this.modalEliminarAbierto = true;
   }
 
+  // CERRAR MODAL DE ELIMINACIÓN
   cerrarModalEliminar()
   {
     this.id_Eliminar = null;
     this.modalEliminarAbierto = false;
   }
 
+  // CONFIRMAR Y EJECUTAR LA ELIMINACIÓN DE LA CATEGORÍA
   confirmarEliminar()
   {
     if(this.id_Eliminar !== null )
@@ -121,7 +129,7 @@ export class CategoriasComponent {
     }
   }
   
-  //filtrar Categoria
+  // FILTRAR CATEGORÍAS POR NOMBRE O ID
     get categoriaFiltradas(): Categoria[]
     {
       if (!this.categorias || this.categorias.length === 0) return [];
